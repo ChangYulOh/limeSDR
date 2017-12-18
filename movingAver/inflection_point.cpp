@@ -79,7 +79,6 @@ int main(int argc, char* argv[]){
 
 
     double curP=0;
-    double preP=0;
 
     double preT,preV,curT,curV;
     preT=0;preV=0;curT=0;curV=0;
@@ -100,7 +99,6 @@ int main(int argc, char* argv[]){
 
     double slopeX1=0;
     double slopeY1=0;
-    double slopeT1=0;
     double slopeX2=0;
     double slopeY2=0;
 
@@ -149,7 +147,7 @@ int main(int argc, char* argv[]){
         if(curA*preA<=0){
             slopeX1=preT;
             slopeY1=preV;
-            slopeT1=curP;
+
         }
         slopeX2=curT;
         slopeY2=curV;
@@ -161,9 +159,6 @@ int main(int argc, char* argv[]){
 
         if(maxslopeleng<slopeleng){
             maxslopeleng=slopeleng;
-
-
-
 
                 longslopeX1=slopeX1;
                 longslopeX2=slopeX2;
@@ -190,31 +185,34 @@ int main(int argc, char* argv[]){
 
         sum_dif_sq+=dif_sq;
 
-            if(round(MA*10)==0 ){
+            if(round(MA*1)==0 ){
 
-                if(pow(curP-preP,2)>max_dif_sq){
+                if(pow(curP-curV,2)>max_dif_sq){
 
-                    gp.writef("%lf %lf \n",longslopeX1,preP);
-                    gp.writef("%lf %lf \n",longslopeX2,curP);
+                    gp.writef("%lf %lf \n",longslopeX1,curP);
+                    gp.writef("%lf %lf \n",longslopeX2,curV);
 
                     maxslopeleng=0;
                 }
-                preP=curP;
+                else{
+
+                gp.writef("%lf %lf \n",curT,curV);//(moveM+preM)/2);
+                }
                 curP=curV;
 
                 pre_dif_sq= sum_dif_sq/count;
-                count=0;
-                sum_dif_sq=0;
+                count=1;
+                sum_dif_sq=dif_sq;
 
 
                 count1++;
 
                 max_dif_sq=0;
 
+                maxslopeleng=0;
                 slopeX1=curT;
                 slopeY1=curV;
 
-               // gp.writef("%lf %lf \n",curT,curV);//(moveM+preM)/2);
             }
 
         }
